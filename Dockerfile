@@ -30,7 +30,7 @@ RUN cd tesseract-4.1.1 \
   && make \
   && make install \
   && ldconfig
-COPY ./traineddata /tesseract-4.1.1/tessdata
+COPY ./project_data/traineddata /tesseract-4.1.1/tessdata
 
 #  Python libraries
 RUN python3 -m pip install opencv-python==4.5.4.58 \
