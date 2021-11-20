@@ -1,0 +1,7 @@
+opencv-python==4.5.4.58
+pytesseract==0.3.7
+natasha==1.4.0
+Flask==2.0.2
+requests==2.22.0
+waitress==2.0.0
+pandas==0.25.3

@@ -1,0 +1,9 @@
+*.pyc
+*.log
+__pycache__
+
+uploaded_data/*
+!uploaded_data/.gitkeep
+
+modules/recognition/temp/*
+!modules/recognition/temp/.gitkeep
