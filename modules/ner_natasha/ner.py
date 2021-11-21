@@ -34,7 +34,7 @@ def get_full_tag(tag):
     replacements = {
         "LOC": "LOCATION",
         "PER": "PERSON",
-        "ORG": "ORGANISATION",
+        "ORG": "ORGANIZATION",
     }
 
     new_tag = tag

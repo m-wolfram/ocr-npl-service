@@ -39,4 +39,13 @@ RUN python3 -m pip install opencv-python==4.5.4.58 \
   && python3 -m pip install Flask==2.0.2 \
   && python3 -m pip install requests==2.22.0 \
   && python3 -m pip install waitress==2.0.0 \
-  && python3 -m pip install pandas==0.25.3
+  && python3 -m pip install pandas==0.25.3 \
+  && python3 -m pip install deeppavlov==0.17.1 \
+  && python3 -m pip deeppavlov install ner_rus_bert \
+  && python3 -m pip install tensorflow==1.15.0 \
+  && python3 -m pip install tensorflow-hub==0.12.0 \
+  && python3 -m pip install gensim==3.6.0 \
+  && python3 -m pip install transformers
+
+#  Jupyter IDE
+RUN python3 -m pip install jupyter

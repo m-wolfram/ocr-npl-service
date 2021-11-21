@@ -4,6 +4,7 @@ import logging
 from sys import platform
 from pathlib import Path
 from pytesseract import Output
+import pandas as pd
 import pytesseract
 import cv2
 from .image_preparation import prepare_image
@@ -185,7 +186,8 @@ def recognize_image(img_path):
     layout_df = process_layout(prepared_ocr_data)
 
     #  Combined dataframe(text spans info + layout). In order to make it possible to parallel previous operations.
-    merged_df = text_df.merge(layout_df)
+    concatenated_df = pd.concat([text_df, layout_df], axis=1)
+    merged_df = concatenated_df.loc[:,~concatenated_df.columns.duplicated()]
 
     #  Result preparation.
     result = build_result(merged_df, extracted_text, image.shape)

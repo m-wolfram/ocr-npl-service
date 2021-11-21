@@ -1,7 +1,7 @@
 import json
 from pathlib import Path
 from settings import uploaded_data_path
-from utils.file_maintenance import save_from_b64
+from utils.file_maintenance import save_from_b64, create_folder
 from modules.recognition import recognize_image
 
 
@@ -33,7 +33,7 @@ def prepare_response(recognition_result):
     return response
 
 
-def process_ocr_request(request_json):
+def process_ocr_request(request_json, session_id):
     """
     Function processes recognition request.
     Required request format:
@@ -43,7 +43,9 @@ def process_ocr_request(request_json):
     }
     """
 
-    image_path_on_server = save_image_on_server(request_json, uploaded_data_path)
+    session_folder_path = create_folder(uploaded_data_path, session_id)
+
+    image_path_on_server = save_image_on_server(request_json, session_folder_path)
 
     recognition_result = recognize_image(image_path_on_server)
 

@@ -1,0 +1,1 @@
+from .detection import detect_objects_in_image

@@ -1,3 +1,3 @@
-docker build -t directum_ai_env:v0.1 .
+docker build -t directum_ai_env:v0.2 .
 
-docker run -it --rm -p 7777:7777 -v C:/Users/Maxim/PycharmProjects/Directum_ai:/opt/Directum_ai/ directum_ai_env:v0.1 bin/bash -c "cd /opt/Directum_ai && python3 web_service.py"
+docker run -it --rm -p 7777:7777 -v C:/Users/Maxim/PycharmProjects/Directum_ai:/opt/Directum_ai/ directum_ai_env:v0.2 bin/bash -c "cd /opt/Directum_ai && python3 web_service.py"
