@@ -1,7 +1,7 @@
 import cv2
 from modules.recognition import recognize_image
 from modules.ner_natasha import ner_text as ner_text_natasha
-#from modules.ner_deeppavlov import ner_text as ner_text_dp
+from modules.ner_deeppavlov import ner_text as ner_text_dp
 
 
 def extend_ner_result_with_positions(ner_recognition_result, ocr_recognition_result):
@@ -64,7 +64,7 @@ def run_ner_image_pipeline(image_path):
     """
 
     #  Can be replaced with classifier that classify what ner engine is more suitable for given text recognition.
-    ner_engine_type = "Natasha"
+    ner_engine_type = "DP"
 
     ocr_recognition_result = recognize_image(image_path)
 

@@ -8,3 +8,7 @@ uploaded_data/*
 
 modules/recognition/temp/*
 !modules/recognition/temp/.gitkeep
+
+project_data/requests_notebook/.ipynb_checkpoints
+project_data/notebooks/.ipynb_checkpoints
+
