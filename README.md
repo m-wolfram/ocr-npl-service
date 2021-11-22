@@ -1,6 +1,6 @@
 # python_ai
 
-По доработка смотреть в todo.txt в project_data
+По доработкам смотреть в todo.txt в project_data
 
 ### Выполнены следующие задания:
     
