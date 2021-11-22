@@ -3,7 +3,7 @@ from pathlib import Path
 from modules.recognition import recognize_image
 from modules.object_detection import detect_objects_in_image
 from modules.classification import classify_img
-from pipelines.ner_image_pipeline import run_ner_image_pipeline
+from pipelines.ner_image_pipeline import run_ner_image_pipeline, get_entities_from_ocr
 
 
 def recognize_each_image(images_paths):
@@ -125,6 +125,42 @@ def ner_each_image(images_paths):
         ner_imgs_data.append(recognition_dict)
 
     return ner_imgs_data
+
+
+def ner_each_ocrdata(ocr_data_list):
+    """
+    Function recognizes named ents from each already recognized image in given data list and creates list of results.
+    Input:
+        [
+            {
+                "image_path": image path,
+                "recognition" image ocr recognition result
+            },
+            ...
+        ]
+    Result:
+        [
+            {
+                "image_path": image path,
+                "recognition" image named entities recognition result
+            },
+            ...
+        ]
+    """
+
+    ner_data_list = []
+
+    for ocr_data in ocr_data_list:
+        ner_result = get_entities_from_ocr(ocr_data["recognition"])
+
+        recognition_dict = {
+            "image_path": ocr_data["image_path"],
+            "recognition": ner_result
+        }
+
+        ner_data_list.append(recognition_dict)
+
+    return ner_data_list
 
 
 def get_main_pages(pages_data):
@@ -254,6 +290,7 @@ def combine_result(ocr_data, obj_detection_data, pages_data, ner_data):
 
     return result
 
+
 def run_document_pipeline(document_images_paths):
     """Function goes through document processing pipeline steps and returns combined result."""
 
@@ -266,10 +303,14 @@ def run_document_pipeline(document_images_paths):
 
     #  Getting information about pages classification.
     pages_data = classify_document_pages(document_images_paths)
+
     #  Getting paths of main pages.
     main_pages_paths = get_main_pages(pages_data)
+
     #  Applying NER to each main page.
-    ner_data = ner_each_image(main_pages_paths)
+    #  getting ocr data of main pages from already recognized images.
+    ocr_data_mps = [page for page in ocr_data if page["image_path"] in main_pages_paths]
+    ner_data = ner_each_ocrdata(ocr_data_mps)
 
     result = combine_result(ocr_data, object_detection_data, pages_data, ner_data)
 

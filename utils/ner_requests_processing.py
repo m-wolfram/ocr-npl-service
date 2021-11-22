@@ -26,6 +26,22 @@ def prepare_response(ner_module_result):
     return response
 
 
+def ner_txt(txt):
+    """Function passes given text to suitable ner module."""
+
+    #  Can be replaced with classifier that classify what ner engine is more suitable for given text recognition.
+    engine_type = "DP"
+
+    if engine_type == "Natasha":
+        recognition_result = ner_text_natasha(txt)
+    elif engine_type == "DP":
+        recognition_result = ner_text_dp(txt)
+    else:
+        raise NotImplementedError("Unsupported NER engine type!")
+
+    return recognition_result
+
+
 def process_ner_request(request_json):
     """
     Function processes named entity recognition request.
@@ -35,18 +51,10 @@ def process_ner_request(request_json):
     }
     """
 
-    #  Can be replaced with classifier that classify what ner engine is more suitable for given text recognition.
-    engine_type = "DP"
-
     text = get_text_from_request(request_json)
 
-    if engine_type == "Natasha":
-        recognition_result = ner_text_natasha(text)
-    elif engine_type == "DP":
-        recognition_result = ner_text_dp(text)
-    else:
-        raise NotImplementedError("Unsupported NER engine type!")
+    text_recognition_result = ner_txt(text)
 
-    response = prepare_response(recognition_result)
+    response = prepare_response(text_recognition_result)
 
     return response

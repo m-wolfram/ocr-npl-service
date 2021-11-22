@@ -41,6 +41,24 @@ def draw_debug_image(result, image, save_path):
     return save_path
 
 
+def get_entities_from_ocr(ocr_data):
+    """Function extracts entities from given ocr data."""
+
+    #  Can be replaced with classifier that classify what ner engine is more suitable for given text recognition.
+    ner_engine_type = "DP"
+
+    if ner_engine_type == "Natasha":
+        ner_recognition_result = ner_text_natasha(ocr_data["text"])
+    elif ner_engine_type == "DP":
+        ner_recognition_result = ner_text_dp(ocr_data["text"])
+    else:
+        raise NotImplementedError("Unsupported NER engine type!")
+
+    extended_ner_recognition_result = extend_ner_result_with_positions(ner_recognition_result, ocr_data)
+
+    return extended_ner_recognition_result
+
+
 def run_ner_image_pipeline(image_path):
     """
     Function goes throught image ner pipeline steps and returns combined result.
@@ -63,18 +81,9 @@ def run_ner_image_pipeline(image_path):
     }
     """
 
-    #  Can be replaced with classifier that classify what ner engine is more suitable for given text recognition.
-    ner_engine_type = "DP"
-
     ocr_recognition_result = recognize_image(image_path)
 
-    if ner_engine_type == "Natasha":
-        ner_recognition_result = ner_text_natasha(ocr_recognition_result["text"])
-    elif ner_engine_type == "DP":
-        ner_recognition_result = ner_text_dp(ocr_recognition_result["text"])
-    else:
-        raise NotImplementedError("Unsupported NER engine type!")
+    #  Getting entities from ocr'ed image.
+    entities = get_entities_from_ocr(ocr_recognition_result)
 
-    extended_ner_recognition_result = extend_ner_result_with_positions(ner_recognition_result, ocr_recognition_result)
-
-    return extended_ner_recognition_result
+    return entities
