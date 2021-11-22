@@ -60,8 +60,8 @@
         В проекте можно выбрать движок распознавания.
         Для этого нужно поменять значения в файлах на "Natasha":
         
-            <папка проекта>/pipelines/ner_image_pipeline в функции run_ner_image_pipeline(..),
-            <папка проекта>/utils/ner_requests_processing в функции process_ner_request(..),
+            <папка проекта>/pipelines/ner_image_pipeline в функции get_entities_from_ocr(..),
+            <папка проекта>/utils/ner_requests_processing в функции ner_txt(..),
             
             переменные ner_engine_type и engine_type.
         Можно указать один из вариантов: "DP" и "Natasha".
