@@ -4,10 +4,10 @@ from logging.handlers import RotatingFileHandler
 from pathlib import Path
 from flask import Flask, request, make_response
 from waitress import serve
-from utils.ocr_requests_processing import process_ocr_request
-from utils.ner_requests_processing import process_ner_request
-from utils.ner_image_request_processing import process_ner_image_request
-from utils.doc_pipeline_request_processing import process_doc_pipeline_request
+from service_requests.RequestOCR import RequestOCR
+from service_requests.RequestNER import RequestNER
+from service_requests.RequestNERImage import RequestNERImage
+from service_requests.RequestDocPipeline import RequestDocPipeline
 from utils.requests_utils import create_error_response
 from utils.network_utils import check_docker_environment, get_ip
 from settings import (
@@ -51,10 +51,11 @@ def request_recognition():
 
     try:
         if request.content_type == "application/json":
-            request_json = request.json
-
             session_id = str(uuid.uuid4())
-            response = process_ocr_request(request_json, session_id)
+
+            Request = RequestOCR(request.json, session_id)
+            response = Request.process_ocr_request()
+
             return make_response(response, 200)
         else:
             return make_response(create_error_response("Incorrect request content type! "
@@ -75,8 +76,10 @@ def request_ner():
 
     try:
         if request.content_type == "application/json":
-            request_json = request.json
-            response = process_ner_request(request_json)
+
+            Request = RequestNER(request.json)
+            response = Request.process_ner_request()
+
             return make_response(response, 200)
         else:
             return make_response(create_error_response("Incorrect request content type! "
@@ -98,10 +101,11 @@ def request_ner_image():
 
     try:
         if request.content_type == "application/json":
-            request_json = request.json
-
             session_id = str(uuid.uuid4())
-            response = process_ner_image_request(request_json, session_id)
+
+            Request = RequestNERImage(request.json, session_id)
+            response = Request.process_ner_image_request()
+
             return make_response(response, 200)
         else:
             return make_response(create_error_response("Incorrect request content type! "
@@ -123,10 +127,11 @@ def request_document_processing():
 
     try:
         if request.content_type == "application/json":
-            request_json = request.json
-
             session_id = str(uuid.uuid4())
-            response = process_doc_pipeline_request(request_json, session_id)
+
+            Request = RequestDocPipeline(request.json, session_id)
+            response = Request.process_doc_pipeline_request()
+
             return make_response(response, 200)
         else:
             return make_response(create_error_response("Incorrect request content type! "
