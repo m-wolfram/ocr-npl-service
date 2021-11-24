@@ -53,8 +53,8 @@ def request_recognition():
         if request.content_type == "application/json":
             session_id = str(uuid.uuid4())
 
-            Request = RequestOCR(request.json, session_id)
-            response = Request.process_ocr_request()
+            request_ = RequestOCR(request.json, session_id)
+            response = request_.process_ocr_request()
 
             return make_response(response, 200)
         else:
@@ -77,8 +77,8 @@ def request_ner():
     try:
         if request.content_type == "application/json":
 
-            Request = RequestNER(request.json)
-            response = Request.process_ner_request()
+            request_ = RequestNER(request.json)
+            response = request_.process_ner_request()
 
             return make_response(response, 200)
         else:
@@ -103,8 +103,8 @@ def request_ner_image():
         if request.content_type == "application/json":
             session_id = str(uuid.uuid4())
 
-            Request = RequestNERImage(request.json, session_id)
-            response = Request.process_ner_image_request()
+            request_ = RequestNERImage(request.json, session_id)
+            response = request_.process_ner_image_request()
 
             return make_response(response, 200)
         else:
@@ -129,8 +129,8 @@ def request_document_processing():
         if request.content_type == "application/json":
             session_id = str(uuid.uuid4())
 
-            Request = RequestDocPipeline(request.json, session_id)
-            response = Request.process_doc_pipeline_request()
+            request_ = RequestDocPipeline(request.json, session_id)
+            response = request_.process_doc_pipeline_request()
 
             return make_response(response, 200)
         else:

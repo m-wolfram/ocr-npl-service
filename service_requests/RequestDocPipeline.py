@@ -3,7 +3,7 @@ from pathlib import Path
 from settings import uploaded_data_path
 from utils.file_maintenance import save_from_b64, create_folder
 from utils.data_preparation import split_multipage_tif
-from pipelines.document_processing_pipeline import run_document_pipeline
+from pipelines.PipelineDocProcessing import PipelineDocProcessing
 
 
 class RequestDocPipeline():
@@ -56,7 +56,8 @@ class RequestDocPipeline():
         #  Getting images list after tif splitting.
         document_images_paths = split_multipage_tif(document_path_on_server, session_folder_path)
 
-        doc_pipeline_result = run_document_pipeline(document_images_paths)
+        pipeline = PipelineDocProcessing(document_images_paths)
+        doc_pipeline_result = pipeline.run_document_pipeline()
 
         response = self.prepare_response(doc_pipeline_result)
 

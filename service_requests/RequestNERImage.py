@@ -2,7 +2,7 @@ import json
 from pathlib import Path
 from settings import uploaded_data_path
 from utils.file_maintenance import save_from_b64, create_folder
-from pipelines.ner_image_pipeline import run_ner_image_pipeline
+from pipelines.PipelineNERImage import PipelineNERImage
 
 
 class RequestNERImage():
@@ -52,7 +52,8 @@ class RequestNERImage():
 
         image_path_on_server = self.save_image_on_server(session_folder_path)
 
-        ner_img_pipeline_result = run_ner_image_pipeline(image_path_on_server)
+        pipeline = PipelineNERImage(image_path_on_server)
+        ner_img_pipeline_result = pipeline.run_ner_image_pipeline()
 
         response = self.prepare_response(ner_img_pipeline_result)
 
