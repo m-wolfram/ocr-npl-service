@@ -66,7 +66,7 @@
         Для этого нужно поменять значения в файлах на "Natasha":
         
             <папка проекта>/pipelines/ner_image_pipeline в функции get_entities_from_ocr(..),
-            <папка проекта>/utils/ner_requests_processing в функции ner_txt(..),
+            <папка проекта>/service_requests/RequestNER в методе ner_txt(..),
             
             переменные ner_engine_type и engine_type.
         Можно указать один из вариантов: "DP" и "Natasha".
