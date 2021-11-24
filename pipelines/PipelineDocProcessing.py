@@ -11,7 +11,7 @@ class PipelineDocProcessing():
 
     def recognize_each_image(self):
         """
-        Function recognizes each image in given images list and creates list of results.
+        Method recognizes each image in given images list and creates list of results.
         Result:
             [
                 {
@@ -38,7 +38,7 @@ class PipelineDocProcessing():
 
     def detect_objects_in_each_image(self):
         """
-        Function detects objects in each image in given images list and creates list of results.
+        Method detects objects in each image in given images list and creates list of results.
         Result:
             [
                 {
@@ -65,7 +65,7 @@ class PipelineDocProcessing():
 
     def classify_document_pages(self):
         """
-        Function classifies document pages and creates list of results.
+        Method classifies document pages and creates list of results.
         Result:
             [
                 {
@@ -101,7 +101,7 @@ class PipelineDocProcessing():
 
     def ner_each_image(self):
         """
-        Function recognizes named entities from each image in given images list and creates list of results.
+        Method recognizes named entities from each image in given images list and creates list of results.
         Result:
             [
                 {
@@ -130,7 +130,7 @@ class PipelineDocProcessing():
 
     def ner_each_ocrdata(self, ocr_data_list):
         """
-        Function recognizes named entities from each already recognized image
+        Method recognizes named entities from each already recognized image
         in given data list and creates list of results.
         Input:
             [
@@ -166,7 +166,7 @@ class PipelineDocProcessing():
 
     def get_main_pages(self, pages_data):
         """
-        Function returns path of a main document page.
+        Method returns path of a main document page.
         :param pages_data: list of dicts, where each dict contains information about page.
         Input format list of dicts:
         [
@@ -191,8 +191,7 @@ class PipelineDocProcessing():
 
     def combine_result(self, ocr_data, obj_detection_data, pages_data, ner_data):
         """
-        Function combines final pipeline's result from received from modules data.
-
+        Method combines final pipeline's result from received from modules data.
         Returns following pipeline result:
 
         {
@@ -291,7 +290,7 @@ class PipelineDocProcessing():
         return result
 
     def run_document_pipeline(self):
-        """Function goes through document processing pipeline steps and returns combined result."""
+        """Method goes through document processing pipeline steps and returns combined result."""
 
         #  Next steps can be paralleled.
         #  Recognizing each image from document.
